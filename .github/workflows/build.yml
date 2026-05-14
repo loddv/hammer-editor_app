@@ -32,6 +32,16 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Run Server Migration Tests
         run: ./gradlew :server:verifySqlDelightMigration
+      - name: Run Round-Trip Sync Integration Tests
+        run: ./gradlew :integrationTests:jvmTest
+      - name: Upload integration test report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-tests-report
+          path: |
+            integrationTests/build/reports/tests/jvmTest/
+            integrationTests/build/test-results/jvmTest/
 #  ios:
 #    runs-on: macos-latest
 #    steps:

@@ -12,4 +12,4 @@ plugins {
 
 rootProject.name = "hammer"
 
-include(":base", ":android", ":desktop", ":composeUi", ":common", ":server", ":integration-tests")
+include(":base", ":android", ":desktop", ":composeUi", ":common", ":server", ":integrationTests")
