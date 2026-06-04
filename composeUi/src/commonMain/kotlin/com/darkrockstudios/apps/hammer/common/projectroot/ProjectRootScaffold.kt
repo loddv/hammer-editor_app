@@ -25,12 +25,15 @@ import com.darkrockstudios.apps.hammer.common.compose.designsystem.HdNavRail
 import com.darkrockstudios.apps.hammer.common.compose.theme.ProjectThemeOverride
 import com.darkrockstudios.apps.hammer.common.util.getAppVersionString
 
-// Locale-independent nav testTags; values match "nav-${DestinationTypes.name}".
-const val NAV_HOME_TAG = "nav-Home"
-const val NAV_EDITOR_TAG = "nav-Editor"
-const val NAV_NOTES_TAG = "nav-Notes"
-const val NAV_ENCYCLOPEDIA_TAG = "nav-Encyclopedia"
-const val NAV_TIMELINE_TAG = "nav-TimeLine"
+// Locale-independent nav testTag, derived from the destination enum so the bar, the rail, and the
+// constants below can never drift apart.
+fun navTestTag(destination: ProjectRoot.DestinationTypes): String = "nav-${destination.name}"
+
+val NAV_HOME_TAG = navTestTag(ProjectRoot.DestinationTypes.Home)
+val NAV_EDITOR_TAG = navTestTag(ProjectRoot.DestinationTypes.Editor)
+val NAV_NOTES_TAG = navTestTag(ProjectRoot.DestinationTypes.Notes)
+val NAV_ENCYCLOPEDIA_TAG = navTestTag(ProjectRoot.DestinationTypes.Encyclopedia)
+val NAV_TIMELINE_TAG = navTestTag(ProjectRoot.DestinationTypes.TimeLine)
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -87,7 +90,7 @@ private fun CompactNavigation(
 				destinations = destinations,
 				selectedId = router.active.instance.getLocationType(),
 				onSelect = { component.showDestination(it) },
-				itemTestTag = { "nav-${it.name}" },
+				itemTestTag = ::navTestTag,
 			)
 		},
 		floatingActionButton = {
@@ -119,7 +122,7 @@ private fun RailNavigation(
 					onSelect = { component.showDestination(it) },
 					expanded = navRailState.expanded,
 					onToggleExpanded = { component.toggleNavRailExpanded() },
-					itemTestTag = { "nav-${it.name}" },
+					itemTestTag = ::navTestTag,
 					modifier = Modifier.onSizeChanged {
 						navRailWidth = density.run { it.width.toDp() }
 					},

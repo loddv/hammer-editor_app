@@ -34,12 +34,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.darkrockstudios.apps.hammer.common.compose.testTagOrNull
 
 data class HdBottomBarDestination<T>(
 	val id: T,
@@ -148,7 +148,7 @@ private fun <T> RowScope.HdBottomBarItem(
 			.fillMaxHeight()
 			.clickable(onClick = onClick)
 			.semantics { contentDescription = destination.label }
-			.then(if (testTag != null) Modifier.testTag(testTag) else Modifier),
+			.testTagOrNull(testTag),
 		horizontalAlignment = Alignment.CenterHorizontally,
 		verticalArrangement = Arrangement.Center,
 	) {

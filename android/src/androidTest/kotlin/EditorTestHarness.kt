@@ -50,11 +50,24 @@ fun hasTestTagPrefix(prefix: String) = SemanticsMatcher("testTag starts with '$p
 	node.config.getOrNull(SemanticsProperties.TestTag)?.startsWith(prefix) == true
 }
 
+/** Wait until at least one node with [tag] is present. */
+fun ComposeTestRule.waitForTag(tag: String, timeoutMillis: Long = 10_000) {
+	waitUntil(timeoutMillis) { onAllNodesWithTag(tag).fetchSemanticsNodes().isNotEmpty() }
+}
+
+/** Wait until no node with [tag] is present. */
+fun ComposeTestRule.waitForTagGone(tag: String, timeoutMillis: Long = 10_000) {
+	waitUntil(timeoutMillis) { onAllNodesWithTag(tag).fetchSemanticsNodes().isEmpty() }
+}
+
+/** Wait until at least one node whose testTag starts with [prefix] is present. */
+fun ComposeTestRule.waitForTagPrefix(prefix: String, timeoutMillis: Long = 10_000) {
+	waitUntil(timeoutMillis) { onAllNodes(hasTestTagPrefix(prefix)).fetchSemanticsNodes().isNotEmpty() }
+}
+
 /** Wait for a nav destination tag to render, then click it. */
 fun ComposeTestRule.navigateTo(navTag: String) {
-	waitUntil(timeoutMillis = 10_000) {
-		onAllNodesWithTag(navTag).fetchSemanticsNodes().isNotEmpty()
-	}
+	waitForTag(navTag)
 	onNodeWithTag(navTag).performClick()
 }
 

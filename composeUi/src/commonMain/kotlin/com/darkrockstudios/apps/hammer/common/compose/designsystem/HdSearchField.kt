@@ -20,11 +20,11 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.darkrockstudios.apps.hammer.common.compose.testTagOrNull
 
 /**
  * Hairline-bordered, square-cornered single-line search field. Sits in
@@ -81,7 +81,7 @@ fun HdSearchField(
 				modifier = Modifier
 					.fillMaxWidth()
 					.then(if (focusRequester != null) Modifier.focusRequester(focusRequester) else Modifier)
-					.then(if (testTag != null) Modifier.testTag(testTag) else Modifier),
+					.testTagOrNull(testTag),
 			)
 			if (value.isEmpty()) {
 				Text(

@@ -11,13 +11,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.darkrockstudios.apps.hammer.common.compose.testTagOrNull
 
 /**
  * Hairline-underline labeled text field — the create-entry vocabulary.
@@ -96,7 +96,7 @@ fun HdHairlineField(
 					modifier = Modifier
 						.fillMaxWidth()
 						.onFocusChanged { onFocusChanged(it.isFocused) }
-						.then(if (testTag != null) Modifier.testTag(testTag) else Modifier),
+						.testTagOrNull(testTag),
 					enabled = enabled,
 					singleLine = singleLine,
 					minLines = minLines,

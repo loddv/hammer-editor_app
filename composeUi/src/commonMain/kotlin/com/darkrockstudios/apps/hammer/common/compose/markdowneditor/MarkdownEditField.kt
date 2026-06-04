@@ -10,7 +10,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.Dp
@@ -19,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.darkrockstudios.apps.hammer.common.compose.LocalMarkdownConfig
 import com.darkrockstudios.apps.hammer.common.compose.markdown.updateMarkdownConfiguration
 import com.darkrockstudios.apps.hammer.common.compose.rememberKoinInject
+import com.darkrockstudios.apps.hammer.common.compose.testTagOrNull
 import com.darkrockstudios.apps.hammer.common.spellcheck.SpellCheckRepository
 import com.darkrockstudios.apps.hammer.common.utils.toEditorSpellChecker
 import com.darkrockstudios.texteditor.rememberTextEditorStyle
@@ -89,7 +89,7 @@ fun MarkdownEditField(
 				.fillMaxWidth()
 				.weight(1f)
 				.heightIn(min = minEditorHeight)
-				.then(if (testTag != null) Modifier.testTag(testTag) else Modifier),
+				.testTagOrNull(testTag),
 		)
 	}
 }

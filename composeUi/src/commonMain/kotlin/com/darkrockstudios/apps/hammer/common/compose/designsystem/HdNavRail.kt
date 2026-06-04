@@ -43,13 +43,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.darkrockstudios.apps.hammer.common.compose.testTagOrNull
 
 data class HdNavRailDestination<T>(
 	val id: T,
@@ -189,7 +189,7 @@ private fun <T> HdNavRailRow(
 			.height(ItemHeight)
 			.clickable(onClick = onClick)
 			.semantics { contentDescription = destination.label }
-			.then(if (testTag != null) Modifier.testTag(testTag) else Modifier),
+			.testTagOrNull(testTag),
 		verticalAlignment = Alignment.CenterVertically,
 	) {
 		AnimatedContent(

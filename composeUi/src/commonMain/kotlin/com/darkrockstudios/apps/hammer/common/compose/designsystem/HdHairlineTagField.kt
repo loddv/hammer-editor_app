@@ -13,12 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.darkrockstudios.apps.hammer.common.compose.CollapseWhileTyping
+import com.darkrockstudios.apps.hammer.common.compose.testTagOrNull
 
 /**
  * Tag chip field — labeled hairline-underline input that keeps its
@@ -136,7 +136,7 @@ fun HdHairlineTagField(
 							.fillMaxWidth()
 							.heightIn(min = 24.dp)
 							.onFocusChanged { tagsFocused = it.isFocused }
-							.then(if (testTag != null) Modifier.testTag(testTag) else Modifier)
+							.testTagOrNull(testTag)
 							.onPreviewKeyEvent { event ->
 								if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
 								when (event.key) {
